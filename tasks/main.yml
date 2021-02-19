@@ -1,0 +1,30 @@
+
+- name: check onstatic exists
+  stat:
+    path: "{{ onstatic_dirpath }}.run/onstatic"
+  register: onstatic_installed
+
+- include_tasks: install_onstatic.yml
+  when: onstatic_installed.stat.exists == false
+
+- name: copy systemd config
+  template:
+    src: onstatic.service
+    dest: /etc/systemd/system/onstatic.service
+
+- name: systemd reload
+  systemd:
+    daemon_reload: yes
+
+- name: onstatic service enable
+  systemd:
+    name: onstatic
+    enabled: yes
+
+- name: onstatic service start
+  systemd:
+    name: onstatic
+    state: started
+
+- include_tasks: register_repositories.yml
+  loop: "{{ onstatic_register_repositories }}"

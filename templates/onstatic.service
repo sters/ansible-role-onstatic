@@ -1,0 +1,16 @@
+[Unit]
+Description = onstatic
+
+[Service]
+User = root
+Type = simple
+ExecStart = {{ onstatic_dirpath }}.run/onstatic
+WorkingDirectory = {{ onstatic_dirpath }}.run/
+Restart = always
+Environment = "ONSTATIC_HTTP_PORT={{ onstatic_backend_port }}"
+Environment = "ONSTATIC_SALT={{ onstatic_salt }}"
+Environment = "ONSTATIC_HTTP_HEADER_KEY={{ onstatic_http_header_key }}"
+Environment = "ONSTATIC_REPOSITORIES_DIRECTORY=../"
+
+[Install]
+WantedBy = multi-user.target

@@ -1,0 +1,27 @@
+
+- name: create dir
+  file:
+    path: "{{ onstatic_dirpath }}.run/"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: get latest onstatic version
+  uri:
+    url: https://api.github.com/repos/sters/onstatic/releases/latest
+    return_content: true
+  register: json_response
+
+## https://jmespath.org/specification.html
+## https://stackoverflow.com/questions/46738081/filter-a-json-document-in-ansible
+- name: download latest onstatic
+  vars:
+    query: "assets[?ends_with(name, 'linux_amd64.tar.gz')].browser_download_url"
+  unarchive:
+    remote_src: yes
+    src: "{{ json_response.json | to_json | from_json | community.general.json_query(query) | first }}"
+    dest: "{{ onstatic_dirpath }}.run/"
+    owner: root
+    group: root
+    mode: 0755

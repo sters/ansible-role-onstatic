@@ -1,0 +1,16 @@
+
+- name: register repositories
+  uri:
+    url: "http://localhost:{{ onstatic_backend_port }}/register"
+    method: POST
+    headers:
+      X-ONSTATIC-KEY: "{{ onstatic_http_header_key }}"
+      X-ONSTATIC-REPONAME: "{{ item }}"
+    return_content: true
+  failed_when: false
+  register: register_result
+
+- name: show key
+  debug:
+    msg: "{{ register_result.content }}"
+  when: register_result.status == 200
