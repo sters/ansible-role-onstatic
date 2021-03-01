@@ -3,3 +3,4 @@ __onstatic_dirpath: /var/www/onstatic
 __onstatic_backend_port: 18888
 __onstatic_salt: onstatic
 __onstatic_http_header_key: onstatic
+__onstatic_force_install: false

@@ -5,7 +5,7 @@
   register: onstatic_installed
 
 - include_tasks: install_onstatic.yml
-  when: onstatic_installed.stat.exists == false
+  when: onstatic_force_install or onstatic_installed.stat.exists == false
 
 - name: copy systemd config
   template:

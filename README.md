@@ -24,3 +24,4 @@ Installs [sters/onstatic](https://github.com/sters/onstatic) on RedHat/CentOS se
 |onstatic_salt                 |onstatic         |salt for calculate name     |
 |onstatic_http_header_key      |onstatic         |expects for `X-ONSTATIC-KEY`|
 |onstatic_register_repositories|[]               |pre-register repositories   |
+|onstatic_force_install        |false            |force install onstatic bin  |
