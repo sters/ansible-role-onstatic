@@ -21,10 +21,10 @@
     name: onstatic
     enabled: yes
 
-- name: onstatic service start
+- name: onstatic service restart
   systemd:
     name: onstatic
-    state: started
+    state: restarted
 
 - include_tasks: register_repositories.yml
   loop: "{{ onstatic_register_repositories }}"
